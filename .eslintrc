@@ -1,0 +1,39 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "no-console": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "react/display-name": 1
+  },
+  "plugins": ["react", "react-hooks"]
+}

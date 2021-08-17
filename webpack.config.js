@@ -2,20 +2,35 @@ const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const EslintWebpackPlugin = require("eslint-webpack-plugin");
+const { NoEmitOnErrorsPlugin } = require("webpack");
 
 module.exports = {
   mode: "development",
-//   devtool: "source-map",
-  entry: {
-    app1: "./src/test1.js",
-    app2: "./src/test2.js",
-  },
+  //   devtool: "source-map",
+  entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].[hash].js",
+    filename: "[name].[fullhash].js",
   },
   module: {
     rules: [
+      {
+        test: /\.(scss|sass)$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                config: path.resolve(__dirname, "postcss.config.js"),
+              },
+            },
+          },
+          "sass-loader"
+        ],
+      },
       {
         test: /\.js$/,
         use: ["babel-loader"],
@@ -52,6 +67,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
+    new NoEmitOnErrorsPlugin(),
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -62,6 +78,9 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "src", "assets", "index.html"),
+    }),
+    new EslintWebpackPlugin({
+      overrideConfigFile: path.resolve(__dirname, ".eslintrc"),
     }),
   ],
 };
