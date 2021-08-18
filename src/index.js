@@ -3,7 +3,7 @@ import "./style.scss";
 import Logo from "./assets/MarketplaceArtwork.png";
 
 const App = () => {
-  console.log("this is test");
+  console.log("this is test222");
   return (
     <div className="container">
       <h1>Hello World!</h1>
