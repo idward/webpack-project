@@ -25,7 +25,7 @@
     }
   },
   "rules": {
-    "no-console": "off",
+    "no-console": "error",
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [
       1,

@@ -3,7 +3,8 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const EslintWebpackPlugin = require("eslint-webpack-plugin");
-const { NoEmitOnErrorsPlugin } = require("webpack");
+const { NoEmitOnErrorsPlugin, ProgressPlugin } = require("webpack");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "development",
@@ -12,13 +13,14 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].[fullhash].js",
+    publicPath: "https://cdn.example.com/assets/",
   },
   module: {
     rules: [
       {
         test: /\.(scss|sass)$/,
         use: [
-          "style-loader",
+          MiniCssExtractPlugin.loader,
           "css-loader",
           {
             loader: "postcss-loader",
@@ -28,16 +30,23 @@ module.exports = {
               },
             },
           },
-          "sass-loader"
+          "sass-loader",
         ],
       },
       {
         test: /\.js$/,
-        use: ["babel-loader"],
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              cacheDirectory: true,
+            },
+          },
+        ],
         exclude: /node_modules/,
       },
       {
-        test: /\.(jpg|jpeg|png|gif|svg)$/,
+        test: /\.(jpe?g|png|gif|svg|eot|woff|ttf|svg|pdf)$/,
         use: [
           {
             loader: "url-loader",
@@ -67,6 +76,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
+    new ProgressPlugin(),
     new NoEmitOnErrorsPlugin(),
     new CopyWebpackPlugin({
       patterns: [
@@ -81,6 +91,9 @@ module.exports = {
     }),
     new EslintWebpackPlugin({
       overrideConfigFile: path.resolve(__dirname, ".eslintrc"),
+    }),
+    new MiniCssExtractPlugin({
+      filename: "css/[name]-[contenthash:8].css",
     }),
   ],
 };
