@@ -49,10 +49,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "echo \"[Husky] pre-commit\""
     }
-  },
-  "lint-staged": {
-    "src/**/*.js": "echo \"[Husky] pre-commit\""
   }
 }
