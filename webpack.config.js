@@ -65,7 +65,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js"],
+    extensions: [".js", ".jsx", '.json']
   },
   devServer: {
     contentBase: path.resolve(__dirname, "dist"),
