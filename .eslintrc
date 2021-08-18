@@ -1,11 +1,13 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:jsx-a11y/recommended"
+    "plugin:jsx-a11y/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "env": {
     "browser": true,
@@ -16,11 +18,12 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 6,
+    "ecmaVersion": 2019,
     "sourceType": "module"
   },
   "settings": {
     "react": {
+      "pragma": "React",
       "version": "detect"
     }
   },
@@ -30,10 +33,11 @@
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [".js", ".jsx"]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     ],
-    "react/display-name": 1
+    "react/display-name": 1,
+    "@typescript-eslint/no-empty-interface": "off"
   },
-  "plugins": ["react", "react-hooks"]
+  "plugins": ["react", "react-hooks", "@typescript-eslint"]
 }

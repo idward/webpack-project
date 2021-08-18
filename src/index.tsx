@@ -1,8 +1,13 @@
+import React from "react";
 import ReactDOM from "react-dom";
 import "./style.scss";
 import Logo from "./assets/MarketplaceArtwork.png";
 
-const App = () => {
+interface AppProps {
+    
+}
+
+const App: React.FC<AppProps> = () => {
   console.log("this is test");
   return (
     <div className="container">

@@ -9,7 +9,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   mode: "development",
   //   devtool: "source-map",
-  entry: "./src/index.js",
+  entry: "./src/index.tsx",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].[fullhash].js",
@@ -34,7 +34,12 @@ module.exports = {
         ],
       },
       {
-        test: /\.js$/,
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        use: ['ts-loader']
+      },
+      {
+        test: /\.(js|jsx)$/,
         use: [
           {
             loader: "babel-loader",
@@ -65,7 +70,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".jsx", '.json']
+    extensions: [".js", ".jsx", '.json', '.ts', '.tsx']
   },
   devServer: {
     contentBase: path.resolve(__dirname, "dist"),
