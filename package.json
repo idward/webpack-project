@@ -53,6 +53,8 @@
     }
   },
   "lint-staged": {
-    "src/**/*.js": "echo test"
+    "src/**/*.js": [
+      "echo test"
+    ]
   }
 }
