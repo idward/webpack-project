@@ -72,6 +72,18 @@ module.exports = {
       //   },
     ],
   },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        default: {
+          name: "common", //提取出来的文件命名
+          chunks: "all",
+          minChunks: 2, //表示提取公共部分最少的文件数
+          minSize: 0    //表示提取公共部分最小的大小
+        },
+      },
+    },
+  },
   resolve: {
     extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
   },
