@@ -1,17 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./style.scss";
-import Logo from "./assets/MarketplaceArtwork.png";
+import "../../style.scss";
+import "./page2.scss";
+import Logo from "../../assets/MarketplaceArtwork.png";
 
-interface AppProps {
-    
-}
+interface AppProps {}
 
 const App: React.FC<AppProps> = () => {
   console.log("this is test");
   return (
     <div className="container">
-      <h1>Hello World!</h1>
+      <h1>This is page 2!</h1>
+      <p className="myColor">XXXXXXXXXXXXXX</p>
       <img src={Logo} alt="logo" />
     </div>
   );

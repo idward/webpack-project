@@ -9,10 +9,13 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   mode: "development",
   //   devtool: "source-map",
-  entry: "./src/index.tsx",
+  entry: {
+    page1: "./src/pages/page1/index.tsx",
+    page2: "./src/pages/page2/index.tsx",
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].[fullhash].js",
+    filename: "[name].[chunkhash:8].js",
     publicPath: "https://cdn.example.com/assets/",
   },
   module: {
@@ -36,7 +39,7 @@ module.exports = {
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: ['ts-loader']
+        use: ["ts-loader"],
       },
       {
         test: /\.(js|jsx)$/,
@@ -70,7 +73,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".jsx", '.json', '.ts', '.tsx']
+    extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
   },
   devServer: {
     contentBase: path.resolve(__dirname, "dist"),
@@ -92,7 +95,16 @@ module.exports = {
       ],
     }),
     new HtmlWebpackPlugin({
+      title: "Page One",
       template: path.resolve(__dirname, "src", "assets", "index.html"),
+      filename: "page1.html",
+      chunks: ["page1"],
+    }),
+    new HtmlWebpackPlugin({
+      title: "Page Two",
+      template: path.resolve(__dirname, "src", "assets", "index.html"),
+      filename: "page2.html",
+      chunks: ["page2"],
     }),
     new EslintWebpackPlugin({
       overrideConfigFile: path.resolve(__dirname, ".eslintrc"),
