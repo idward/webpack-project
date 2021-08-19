@@ -16,6 +16,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].[chunkhash:8].js",
+    // chunkFilename: "[name].[chunkhash:8].js",
     publicPath: "https://cdn.example.com/assets/",
   },
   module: {
@@ -79,7 +80,7 @@ module.exports = {
           name: "common", //提取出来的文件命名
           chunks: "all",
           minChunks: 2, //表示提取公共部分最少的文件数
-          minSize: 0    //表示提取公共部分最小的大小
+          minSize: 0, //表示提取公共部分最小的大小
         },
       },
     },
@@ -110,13 +111,15 @@ module.exports = {
       title: "Page One",
       template: path.resolve(__dirname, "src", "assets", "index.html"),
       filename: "page1.html",
-      chunks: ["page1"],
+      chunks: ["common", "page1"],
+      inject: false,
     }),
     new HtmlWebpackPlugin({
       title: "Page Two",
       template: path.resolve(__dirname, "src", "assets", "index.html"),
       filename: "page2.html",
-      chunks: ["page2"],
+      chunks: ["common", "page2"],
+      inject: false,
     }),
     new EslintWebpackPlugin({
       overrideConfigFile: path.resolve(__dirname, ".eslintrc"),
