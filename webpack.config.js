@@ -17,7 +17,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].[chunkhash:8].js",
     // chunkFilename: "[name].[chunkhash:8].js",
-    publicPath: "https://cdn.example.com/assets/",
+    // publicPath: "https://cdn.example.com/assets/",
   },
   module: {
     rules: [
@@ -61,7 +61,7 @@ module.exports = {
             loader: "url-loader",
             options: {
               limit: 1024 * 8,
-              name: "/img/[name]-[contenthash:8].[ext]",
+              name: "img/[name]-[contenthash:8].[ext]",
               //   publicPath: path.resolve(__dirname, "dist", "img"),
             },
           },

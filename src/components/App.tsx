@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from "../assets/MarketplaceArtwork.png";
+// const Logo = require('../assets/MarketplaceArtwork.png');
 
 interface AppProps {}
 

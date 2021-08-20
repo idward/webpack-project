@@ -7,11 +7,11 @@ import App from "../src/components/App";
 
 const app: Express = express();
 
-app.use(express.static(path.resolve(__dirname, '../dist')));
+app.use(express.static(path.resolve(__dirname, '../../dist')));
 
 app.get("*", (req: Request, res: Response) => {
   const indexHtml = fs.readFileSync(
-    path.resolve(__dirname, "../dist/page1.html"),
+    path.resolve(__dirname, "../../dist/page1.html"),
     { encoding: "utf-8" }
   );
 
