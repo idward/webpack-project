@@ -9,13 +9,12 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   mode: "development",
   //   devtool: "source-map",
-  entry: {
-    page1: "./src/pages/page1/index.tsx",
-    page2: "./src/pages/page2/index.tsx",
-  },
+  target: 'electron-renderer',
+  devtool: 'source-map',
+  entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].[chunkhash:8].js",
+    filename: "[name].[fullhash:8].js",
     // chunkFilename: "[name].[chunkhash:8].js",
     // publicPath: "https://cdn.example.com/assets/",
   },
@@ -88,13 +87,6 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
   },
-  devServer: {
-    contentBase: path.resolve(__dirname, "dist"),
-    open: true,
-    hot: true,
-    compress: true,
-    port: 9000,
-  },
   plugins: [
     new CleanWebpackPlugin(),
     new ProgressPlugin(),
@@ -110,17 +102,17 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "Page One",
       template: path.resolve(__dirname, "src", "assets", "index.html"),
-      filename: "page1.html",
-      chunks: ["common", "page1"],
-      inject: false,
+      // filename: "page1.html",
+      // chunks: ["common", "page1"],
+      // inject: false,
     }),
-    new HtmlWebpackPlugin({
-      title: "Page Two",
-      template: path.resolve(__dirname, "src", "assets", "index.html"),
-      filename: "page2.html",
-      chunks: ["common", "page2"],
-      inject: false,
-    }),
+    // new HtmlWebpackPlugin({
+    //   title: "Page Two",
+    //   template: path.resolve(__dirname, "src", "assets", "index.html"),
+    //   filename: "page2.html",
+    //   chunks: ["common", "page2"],
+    //   inject: false,
+    // }),
     new EslintWebpackPlugin({
       overrideConfigFile: path.resolve(__dirname, ".eslintrc"),
     }),
