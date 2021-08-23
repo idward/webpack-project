@@ -2,7 +2,6 @@
   "name": "webpack-basic",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/main.js",
   "scripts": {
     "start": "webpack -c webpack.config.js",
     "server": "webpack serve",

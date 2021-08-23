@@ -9,12 +9,13 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   mode: "development",
   //   devtool: "source-map",
-  target: 'electron-renderer',
-  devtool: 'source-map',
-  entry: './src/index.tsx',
+  target: "web",
+  devtool: "source-map",
+  entry: "./src/hello-webpack/index.tsx",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].[fullhash:8].js",
+    filename: "hello-webpack/lib/index.js",
+    libraryTarget: "umd",
     // chunkFilename: "[name].[chunkhash:8].js",
     // publicPath: "https://cdn.example.com/assets/",
   },
@@ -72,17 +73,25 @@ module.exports = {
       //   },
     ],
   },
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        default: {
-          name: "common", //提取出来的文件命名
-          chunks: "all",
-          minChunks: 2, //表示提取公共部分最少的文件数
-          minSize: 0, //表示提取公共部分最小的大小
-        },
-      },
-    },
+  // optimization: {
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       default: {
+  //         name: "common", //提取出来的文件命名
+  //         chunks: "all",
+  //         minChunks: 2, //表示提取公共部分最少的文件数
+  //         minSize: 0, //表示提取公共部分最小的大小
+  //       },
+  //     },
+  //   },
+  // },
+  // optimization: {
+  //   concatenateModules: false,
+  //   providedExports: false,
+  //   usedExports: false
+  // },
+  externals: {
+    react: "react",
   },
   resolve: {
     extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
@@ -94,9 +103,13 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, "src", "assets", "favicon.ico"),
-          to: path.resolve(__dirname, "dist", "img", "favicon.ico"),
+          from: path.resolve(__dirname, "src", "hello-webpack", "package.json"),
+          to: path.resolve(__dirname, "dist", "hello-webpack", "package.json"),
         },
+        // {
+        //   from: path.resolve(__dirname, "src", "assets", "favicon.ico"),
+        //   to: path.resolve(__dirname, "dist", "img", "favicon.ico"),
+        // },
       ],
     }),
     new HtmlWebpackPlugin({
@@ -117,7 +130,7 @@ module.exports = {
       overrideConfigFile: path.resolve(__dirname, ".eslintrc"),
     }),
     new MiniCssExtractPlugin({
-      filename: "css/[name]-[contenthash:8].css",
+      filename: "hello-webpack/lib/index.css",
     }),
   ],
 };
