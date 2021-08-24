@@ -1,21 +1,25 @@
 const path = require("path");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+// const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+// const CopyWebpackPlugin = require("copy-webpack-plugin");
+// const HtmlWebpackPlugin = require("html-webpack-plugin");
 const EslintWebpackPlugin = require("eslint-webpack-plugin");
 const { NoEmitOnErrorsPlugin, ProgressPlugin } = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const DllReferencePlugin = require("webpack/lib/DllReferencePlugin");
+// const webpack_dllConfig = require("./webpack_dll.config");
 
 module.exports = {
   mode: "development",
   //   devtool: "source-map",
   target: "web",
   devtool: "source-map",
-  entry: "./src/hello-webpack/index.tsx",
+  entry: {
+    main: path.resolve(__dirname, "src/index.tsx"),
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "hello-webpack/lib/index.js",
-    libraryTarget: "umd",
+    filename: "[name].js",
+    // libraryTarget: "umd",
     // chunkFilename: "[name].[chunkhash:8].js",
     // publicPath: "https://cdn.example.com/assets/",
   },
@@ -90,35 +94,35 @@ module.exports = {
   //   providedExports: false,
   //   usedExports: false
   // },
-  externals: {
-    react: "react",
-  },
+  // externals: {
+  //   react: "react",
+  // },
   resolve: {
     extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
   },
   plugins: [
-    new CleanWebpackPlugin(),
+    // new CleanWebpackPlugin(),
     new ProgressPlugin(),
     new NoEmitOnErrorsPlugin(),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: path.resolve(__dirname, "src", "hello-webpack", "package.json"),
-          to: path.resolve(__dirname, "dist", "hello-webpack", "package.json"),
-        },
-        // {
-        //   from: path.resolve(__dirname, "src", "assets", "favicon.ico"),
-        //   to: path.resolve(__dirname, "dist", "img", "favicon.ico"),
-        // },
-      ],
-    }),
-    new HtmlWebpackPlugin({
-      title: "Page One",
-      template: path.resolve(__dirname, "src", "assets", "index.html"),
-      // filename: "page1.html",
-      // chunks: ["common", "page1"],
-      // inject: false,
-    }),
+    // new CopyWebpackPlugin({
+    //   patterns: [
+    //     {
+    //       from: path.resolve(__dirname, "src", "hello-webpack", "package.json"),
+    //       to: path.resolve(__dirname, "dist", "hello-webpack", "package.json"),
+    //     },
+    //     // {
+    //     //   from: path.resolve(__dirname, "src", "assets", "favicon.ico"),
+    //     //   to: path.resolve(__dirname, "dist", "img", "favicon.ico"),
+    //     // },
+    //   ],
+    // }),
+    // new HtmlWebpackPlugin({
+    //   title: "Page One",
+    //   template: path.resolve(__dirname, "src", "assets", "index.html"),
+    //   // filename: "page1.html",
+    //   // chunks: ["common", "page1"],
+    //   // inject: false,
+    // }),
     // new HtmlWebpackPlugin({
     //   title: "Page Two",
     //   template: path.resolve(__dirname, "src", "assets", "index.html"),
@@ -130,7 +134,13 @@ module.exports = {
       overrideConfigFile: path.resolve(__dirname, ".eslintrc"),
     }),
     new MiniCssExtractPlugin({
-      filename: "hello-webpack/lib/index.css",
+      filename: "[name]-[contenthash:8].css",
+    }),
+    new DllReferencePlugin({
+      manifest: require("./dist/react.manifest.json"),
+    }),
+    new DllReferencePlugin({
+      manifest: require("./dist/polyfill.manifest.json"),
     }),
   ],
 };
