@@ -1,6 +1,6 @@
 const path = require("path");
 // const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-// const CopyWebpackPlugin = require("copy-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 // const HtmlWebpackPlugin = require("html-webpack-plugin");
 const EslintWebpackPlugin = require("eslint-webpack-plugin");
 const { NoEmitOnErrorsPlugin, ProgressPlugin } = require("webpack");
@@ -104,18 +104,18 @@ module.exports = {
     // new CleanWebpackPlugin(),
     new ProgressPlugin(),
     new NoEmitOnErrorsPlugin(),
-    // new CopyWebpackPlugin({
-    //   patterns: [
-    //     {
-    //       from: path.resolve(__dirname, "src", "hello-webpack", "package.json"),
-    //       to: path.resolve(__dirname, "dist", "hello-webpack", "package.json"),
-    //     },
-    //     // {
-    //     //   from: path.resolve(__dirname, "src", "assets", "favicon.ico"),
-    //     //   to: path.resolve(__dirname, "dist", "img", "favicon.ico"),
-    //     // },
-    //   ],
-    // }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, "src", "assets", "index.html"),
+          to: path.resolve(__dirname, "dist", "index.html"),
+        },
+        // {
+        //   from: path.resolve(__dirname, "src", "assets", "favicon.ico"),
+        //   to: path.resolve(__dirname, "dist", "img", "favicon.ico"),
+        // },
+      ],
+    }),
     // new HtmlWebpackPlugin({
     //   title: "Page One",
     //   template: path.resolve(__dirname, "src", "assets", "index.html"),
@@ -124,10 +124,8 @@ module.exports = {
     //   // inject: false,
     // }),
     // new HtmlWebpackPlugin({
-    //   title: "Page Two",
+    //   title: "Dll Library",
     //   template: path.resolve(__dirname, "src", "assets", "index.html"),
-    //   filename: "page2.html",
-    //   chunks: ["common", "page2"],
     //   inject: false,
     // }),
     new EslintWebpackPlugin({

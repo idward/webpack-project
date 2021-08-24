@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'" /> -->
     <title><%= htmlWebpackPlugin.options.title %></title>
     <!-- <% for (var css in htmlWebpackPlugin.files.css) { %>
     <link href="<%=htmlWebpackPlugin.files.css[css] %>" rel="stylesheet" />
@@ -12,6 +12,9 @@
   </head>
   <body>
     <div id="app"></div>
+    <script type="text/javascript" defer src="./polyfill.dll.js"></script>
+    <script type="text/javascript" defer src="./react.dll.js"></script>
+    <script type="text/javascript" defer src="./main.js"></script>
     <!-- <% for (var chunk in htmlWebpackPlugin.files.js) { %>
     <script type="text/javascript" src="<%=htmlWebpackPlugin.files.js[chunk] %>"></script>
     <% } %> -->
