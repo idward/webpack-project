@@ -9,10 +9,8 @@ const DllReferencePlugin = require("webpack/lib/DllReferencePlugin");
 // const webpack_dllConfig = require("./webpack_dll.config");
 
 module.exports = {
-  mode: "development",
   //   devtool: "source-map",
   target: "web",
-  devtool: "source-map",
   entry: {
     main: path.resolve(__dirname, "src/index.tsx"),
   },
