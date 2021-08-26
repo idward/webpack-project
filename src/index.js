@@ -1,15 +1,12 @@
-import ReactDOM from "react-dom";
+import { render } from "react-dom";
 import "./style.scss";
-import Logo from "./assets/MarketplaceArtwork.png";
+import App from './components/App';
 
-const App = () => {
-  console.log("this is test");
-  return (
-    <div className="container">
-      <h1>Hello World!</h1>
-      <img src={Logo} alt="logo" />
-    </div>
-  );
-};
+render(<App />, document.getElementById("app"));
 
-ReactDOM.render(<App />, document.getElementById("app"));
+if (module.hot) {
+  console.log("fdasfas");
+  module.hot.accept(["./components/App"], () => {
+    render(<App />, document.getElementById("app"));
+  });
+}

@@ -8,12 +8,19 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "development",
+  devtool: 'eval-source-map',
+  watch: true,
+  watchOptions: {
+    ignored: /node_modules/,
+    aggregateTimeout: 300,
+    poll: 1000,
+  },
   //   devtool: "source-map",
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].[fullhash].js",
-    publicPath: "https://cdn.example.com/assets/",
+    filename: "[name].[fullhash:8].js",
+    // publicPath: "https://cdn.example.com/assets/",
   },
   module: {
     rules: [
@@ -52,7 +59,7 @@ module.exports = {
             loader: "url-loader",
             options: {
               limit: 1024 * 8,
-              name: "/img/[name]-[contenthash:8].[ext]",
+              name: "img/[name]-[contenthash:8].[ext]",
               //   publicPath: path.resolve(__dirname, "dist", "img"),
             },
           },
@@ -65,7 +72,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".jsx", '.json']
+    extensions: [".js", ".jsx", ".json"],
   },
   devServer: {
     contentBase: path.resolve(__dirname, "dist"),
@@ -82,7 +89,7 @@ module.exports = {
       patterns: [
         {
           from: path.resolve(__dirname, "src", "assets", "favicon.ico"),
-          to: path.resolve(__dirname, "dist", "img", "favicon.ico"),
+          to: path.resolve(__dirname, "dist", "favicon.ico"),
         },
       ],
     }),
